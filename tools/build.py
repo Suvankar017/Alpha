@@ -8,7 +8,10 @@ configFlag = "/property:Configuration={}".format(globals.CONFIG.lower())
 res = 0
 
 if globals.IsWindows():
-    res = subprocess.call(["cmd.exe", "/c", VS_BUILD_PATH, fullSolutionName, configFlag])
+    if globals.IS_PARALLEL_BUILD:
+        res = subprocess.call(["cmd.exe", "/c", VS_BUILD_PATH, fullSolutionName, "-m", configFlag])
+    else:
+        res = subprocess.call(["cmd.exe", "/c", VS_BUILD_PATH, fullSolutionName, configFlag])
 elif globals.IsLinux():
     print("Linux is not supported currently... :(")
     res = -1

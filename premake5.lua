@@ -7,6 +7,10 @@ workspace "Alpha"
         "Release"
     }
 
+    flags {
+        "MultiProcessorCompile"
+    }
+
 -- Output Directories
 tdir = "bin/%{cfg.buildcfg}/%{prj.name}"
 odir = "bin-obj/%{cfg.buildcfg}/%{prj.name}"
@@ -14,6 +18,12 @@ odir = "bin-obj/%{cfg.buildcfg}/%{prj.name}"
 -- External Dependencies
 externals = {}
 externals["GLFW"] = "external/GLFW"
+externals["glad"] = "external/glad"
+externals["spdlog"] = "external/spdlog"
+
+-- Include External Premake5.lua Files
+include "external/GLFW"
+include "external/glad"
 
 -- Engine Project
 project "Alpha"
@@ -27,6 +37,9 @@ project "Alpha"
     targetdir (tdir)
     objdir (odir)
 
+    pchheader "pch.h"
+    pchsource "%{prj.name}/src/pch.cpp"
+
     -- Files and Libraries Directories
     files {
         "%{prj.name}/include/**.h",
@@ -35,12 +48,10 @@ project "Alpha"
     }
 
     includedirs {
-        "%{prj.name}/include/Alpha",
-        "%{externals.GLFW}/include"
-    }
-
-    libdirs {
-        "%{externals.GLFW}/lib/%{cfg.buildcfg}"
+        "%{prj.name}/include",
+        "%{externals.GLFW}/include",
+        "%{externals.glad}/include",
+        "%{externals.spdlog}/include"
     }
 
     -- Flags
@@ -48,14 +59,20 @@ project "Alpha"
         "FatalWarnings"
     }
 
+    filter { "system:*", "configurations:*" }
+        defines {
+            "AP_ENGINE"
+        }
+
     -- Windows Filters
     filter { "system:windows" }
         systemversion "latest"
         defines {
-            "ALPHA_PLATFORM_WINDOWS",
+            "AP_PLATFORM_WINDOWS",
             "GLFW_INCLUDE_NONE"
         }
         links {
+            "glad",
             "GLFW",
             "opengl32"
         }
@@ -67,9 +84,10 @@ project "Alpha"
             ["UseModernBuildSystem"] = "NO"
         }
         defines {
-            "ALPHA_PLATFORM_MAC"
+            "AP_PLATFORM_MAC"
         }
         links {
+            "glad.framework",
             "GLFW.framework",
             "opengl32.framework"
         }
@@ -77,9 +95,10 @@ project "Alpha"
     -- Linux Filters
     filter { "system:linux" }
         defines {
-            "ALPHA_PLATFORM_LINUX"
+            "AP_PLATFORM_LINUX"
         }
         links {
+            "glad",
             "GLFW",
             "opengl32"
         }
@@ -88,8 +107,9 @@ project "Alpha"
     filter { "configurations:Debug" }
         runtime "Debug"
         symbols "on"
+        buildoptions "/MTd"
         defines {
-            "ALPHA_DEBUG"
+            "AP_DEBUG"
         }
 
     -- Release Filters
@@ -97,8 +117,9 @@ project "Alpha"
         runtime "Release"
         symbols "off"
         optimize "on"
+        buildoptions "/MT"
         defines {
-            "ALPHA_RELEASE"
+            "AP_RELEASE"
         }
 
 -- Editor Project
@@ -120,7 +141,8 @@ project "AlphaEditor"
     }
 
     includedirs {
-        "Alpha/include"
+        "Alpha/include",
+        "%{externals.spdlog}/include"
     }
 
     links {
@@ -136,7 +158,7 @@ project "AlphaEditor"
     filter { "system:windows" }
         systemversion "latest"
         defines {
-            "ALPHA_PLATFORM_WINDOWS"
+            "AP_PLATFORM_WINDOWS"
         }
 
     -- Mac Filters
@@ -146,21 +168,22 @@ project "AlphaEditor"
             ["UseModernBuildSystem"] = "NO"
         }
         defines {
-            "ALPHA_PLATFORM_MAC"
+            "AP_PLATFORM_MAC"
         }
         
     -- Linux Filters
     filter { "system:linux" }
         defines {
-            "ALPHA_PLATFORM_LINUX"
+            "AP_PLATFORM_LINUX"
         }
     
     -- Debug Filters
     filter { "configurations:Debug" }
         runtime "Debug"
         symbols "on"
+        buildoptions "/MTd"
         defines {
-            "ALPHA_DEBUG"
+            "AP_DEBUG"
         }
 
     -- Release Filters
@@ -168,6 +191,7 @@ project "AlphaEditor"
         runtime "Release"
         symbols "off"
         optimize "on"
+        buildoptions "/MT"
         defines {
-            "ALPHA_RELEASE"
+            "AP_RELEASE"
         }

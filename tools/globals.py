@@ -20,6 +20,7 @@ CONFIG = "Debug"
 
 # Code Editor
 VS_VERSION = "vs2019"
+IS_PARALLEL_BUILD = False
 
 
 for x in platform.uname():

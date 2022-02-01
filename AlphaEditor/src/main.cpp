@@ -1,10 +1,9 @@
-#include "Alpha/engine.h"
+#include "Alpha/Core/App.h"
 
 int main()
 {
-	Alpha::PrintConfig();
-
-	Alpha::Run();
+	Alpha::Core::App app;
+	app.Print();
 
 	return 0;
 }

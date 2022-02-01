@@ -13,3 +13,4 @@ __pycache__/
 *.vcxproj*
 *.sln
 *Makefile
+*.pyc
