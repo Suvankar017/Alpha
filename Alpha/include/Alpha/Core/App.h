@@ -11,11 +11,14 @@ namespace Alpha::Core
 		App();
 		~App();
 
-		void Print();
+		virtual void OnUpdate();
 
 	private:
 
 	};
+
+	App* CreateApp();
+	void DestroyApp(App*& app);
 }
 
 #endif // !APP_H

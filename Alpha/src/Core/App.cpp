@@ -11,8 +11,8 @@ namespace Alpha::Core
 	{
 	}
 
-	void App::Print()
+	void App::OnUpdate()
 	{
-		std::cout << "Alpha Engine" << std::endl;
+		AP_TRACE("Running App");
 	}
 }

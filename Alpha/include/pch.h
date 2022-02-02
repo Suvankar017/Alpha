@@ -19,4 +19,6 @@
 #include <Windows.h>
 #endif
 
+#include "Alpha/Debug/Log.h"
+
 #endif // !PCH_H
