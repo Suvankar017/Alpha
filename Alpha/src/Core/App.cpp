@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Alpha/Core/App.h"
 
-namespace Alpha::Core
+namespace Alpha
 {
 	App::App()
 	{

@@ -3,7 +3,7 @@
 #ifndef LOGMANAGER_H
 #define LOGMANAGER_H
 
-namespace Alpha::Manager
+namespace Alpha
 {
 	class LogManager
 	{

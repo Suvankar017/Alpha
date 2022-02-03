@@ -3,9 +3,12 @@
 #ifndef ENGINE_H
 #define ENGINE_H
 
-namespace Alpha::Core
+namespace Alpha
 {
+	class Window;
 	class App;
+	class Event;
+	class WindowCloseEvent;
 
 	class Engine
 	{
@@ -22,15 +25,18 @@ namespace Alpha::Core
 
 	private:
 		bool m_IsRunning;
-
+		Window* m_Window;
 		App* m_App;
-
 		static Engine* s_Instance;
 
 		Engine();
 
 		void Init();
 		void Shutdown();
+		void PullEvent(Event* event);
+		void OnEvent(Event& event);
+
+		bool OnWindowClose(WindowCloseEvent& event);
 	};
 }
 

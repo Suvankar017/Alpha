@@ -4,7 +4,7 @@
 #include "Alpha/Debug/Log.h"
 #include <spdlog/sinks/stdout_color_sinks.h>
 
-namespace Alpha::Manager
+namespace Alpha
 {
 	void LogManager::Init()
 	{
