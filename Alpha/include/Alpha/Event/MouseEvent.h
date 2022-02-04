@@ -31,6 +31,38 @@ namespace Alpha
 		EVENT_CLASS_CATEGORY((int)EventCategory::Mouse | (int)EventCategory::Input)
 	};
 
+	class MouseEnterEvent : public Event
+	{
+	public:
+		MouseEnterEvent() {}
+
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "MouseEnterEvent";
+			return ss.str();
+		}
+
+		EVENT_CLASS_TYPE(MouseEnter)
+		EVENT_CLASS_CATEGORY((int)EventCategory::Mouse)
+	};
+
+	class MouseExitEvent : public Event
+	{
+	public:
+		MouseExitEvent() {}
+
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "MouseExitEvent";
+			return ss.str();
+		}
+
+		EVENT_CLASS_TYPE(MouseExit)
+		EVENT_CLASS_CATEGORY((int)EventCategory::Mouse)
+	};
+
 	class MouseScrolledEvent : public Event
 	{
 	private:

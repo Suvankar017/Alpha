@@ -39,7 +39,7 @@ namespace Alpha
 		m_Window = glfwCreateWindow(m_Data.Width, m_Data.Height, m_Data.Title.c_str(), NULL, NULL);
 		if (!m_Window)
 		{
-			AP_ERROR("Failed to create window.");
+			AP_ERROR("Failed to create window");
 			return;
 		}
 		AP_INFO("Window ({}, {}, \"{}\") created", m_Data.Width, m_Data.Height, m_Data.Title);
@@ -70,6 +70,7 @@ namespace Alpha
 				AP_ERROR("Unable to raise event (WindowResizeEvent). Do you forget to set event callback?");
 			}
 		});
+
 		glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* win)
 		{
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(win);
@@ -97,7 +98,6 @@ namespace Alpha
 	void WindowsWindow::OnUpdate()
 	{
 		m_Context->SwapBuffers();
-		glfwPollEvents();
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)

@@ -26,15 +26,14 @@ namespace Alpha
 	void EventManager::Flush()
 	{
 		auto& callback = s_Instance->m_EventCallback;
-		if (callback == nullptr) return;
-
 		auto& queue = s_Instance->m_EventQueue;
+
 		while (queue.size() > 0)
 		{
 			const auto& e = queue.front();
 			queue.pop();
 
-			callback(*e);
+			if (callback) callback(*e);
 
 			delete e;
 		}

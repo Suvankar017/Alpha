@@ -56,19 +56,25 @@ namespace Alpha
 		EVENT_CLASS_TYPE(KeyReleased)
 	};
 
-	class KeyTypedEvent : public KeyEvent
+	class KeyTypedEvent : public Event
 	{
+	private:
+		char m_Character;
+
 	public:
-		KeyTypedEvent(int keycode) : KeyEvent(keycode) {}
+		KeyTypedEvent(char character) : m_Character(character) {}
+
+		inline char GetCharacter() const { return m_Character; }
 
 		std::string ToString() const override
 		{
 			std::stringstream ss;
-			ss << "KeyTypedEvent : " << m_KeyCode;
+			ss << "KeyTypedEvent : " << m_Character;
 			return ss.str();
 		}
 
 		EVENT_CLASS_TYPE(KeyTyped)
+		EVENT_CLASS_CATEGORY((int)EventCategory::Keyboard | (int)EventCategory::Input)
 	};
 }
 
