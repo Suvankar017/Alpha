@@ -8,6 +8,7 @@ namespace Alpha
 	class GraphicsContext
 	{
 	public:
+		virtual void SetCurrentContext(void* context) = 0;
 		virtual void SwapBuffers() = 0;
 
 		static GraphicsContext* Create(void* context);

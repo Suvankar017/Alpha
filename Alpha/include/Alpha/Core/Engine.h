@@ -3,7 +3,6 @@
 #ifndef ENGINE_H
 #define ENGINE_H
 
-#include "Alpha/Core/App.h"
 #include "Alpha/Core/Window.h"
 #include "Alpha/Event/Event.h"
 #include "Alpha/Event/ApplicationEvent.h"
@@ -12,6 +11,8 @@
 
 namespace Alpha
 {
+	class App;
+
 	class Engine
 	{
 	public:

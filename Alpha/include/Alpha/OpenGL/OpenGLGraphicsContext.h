@@ -14,6 +14,8 @@ namespace Alpha
 	public:
 		OpenGLGraphicsContext(GLFWwindow* window);
 
+		virtual void SetCurrentContext(void* context) override;
+
 		virtual void SwapBuffers() override;
 
 	private:

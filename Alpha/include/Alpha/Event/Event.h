@@ -4,6 +4,7 @@
 #define EVENT_H
 
 #include <string>
+#include <functional>
 #include <spdlog/fmt/ostr.h>
 
 #define BIT(x) (1 << x)

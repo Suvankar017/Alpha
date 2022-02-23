@@ -2,11 +2,14 @@
 #include "Alpha/Core/Engine.h"
 
 #include "Alpha/Macros.h"
+#include "Alpha/Core/App.h"
 #include "Alpha/Manager/LogManager.h"
 #include "Alpha/Manager/EventManager.h"
 #include "Alpha/Manager/InputManager.h"
 
 #include "Alpha/Input/Input.h"
+
+#include "Alpha/Graphics/Renderer.h"
 
 #include "../External/GLFW.h"
 
@@ -43,6 +46,8 @@ namespace Alpha
 		InputManager::Init(m_Window->GetNativeWindow());
 		InputManager::SetEventCallback(BIND_EVENT_FUNC(Engine::PullEvent));
 
+		Renderer::Init();
+
 		m_App = CreateApp();
 	}
 
@@ -50,6 +55,7 @@ namespace Alpha
 	{
 		DestroyApp(m_App);
 
+		Renderer::Shutdown();
 		InputManager::Shutdown();
 		Window::Destroy(m_Window);
 		GLFW::Shutdown();
@@ -65,6 +71,8 @@ namespace Alpha
 	void Engine::OnEvent(Event& event)
 	{
 		InputManager::OnEvent(event);
+
+		m_App->OnEvent(event);
 
 		EventDispatcher dispatcher(event);
 		//dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FUNC(Engine::OnWindowResize));
@@ -153,6 +161,9 @@ namespace Alpha
 			EventManager::Flush();
 
 			m_App->OnUpdate();
+
+			Renderer::Flush();
+
 			m_Window->OnUpdate();
 
 			InputManager::PollEvents();

@@ -26,6 +26,12 @@ namespace Alpha
 		GLAD::Init();
 	}
 
+	void OpenGLGraphicsContext::SetCurrentContext(void* context)
+	{
+		m_Window = static_cast<GLFWwindow*>(context);
+		glfwMakeContextCurrent(m_Window);
+	}
+
 	void OpenGLGraphicsContext::SwapBuffers()
 	{
 		glfwSwapBuffers(m_Window);
